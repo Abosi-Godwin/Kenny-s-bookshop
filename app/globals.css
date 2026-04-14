@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+    /* ── Core Palette — Dark Luxury ── */
+    --color-base: #0a1a0f; /* Deepest background */
+    --color-surface: #0f2318; /* Card / section background */
+    --color-surface-2: #162d1e; /* Elevated surface */
+    --color-border: #1f3d28; /* Subtle borders */
+    --color-border-light: #2a5236; /* Hover borders */
+
+    /* Gold — the ONLY accent */
+    --color-gold: #d4a017;
+    --color-gold-light: #f0c84a;
+    --color-gold-dim: rgba(212, 160, 23, 0.15);
+    --color-gold-muted: rgba(212, 160, 23, 0.08);
+
+    /* Text */
+    --color-text: #f0ede8; /* Primary text */
+    --color-text-muted: rgba(240, 237, 232, 0.55);
+    --color-text-faint: rgba(240, 237, 232, 0.25);
+
+    /* Utility — keep minimal */
+    --color-white: #ffffff;
+    --color-success: #25d366; /* WhatsApp only */
+
+    /* Fonts */
+    --font-sans: var(--font-dm-sans), sans-serif;
+    --font-playfair: var(--font-playfair), serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ── */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background-color: #0a1a0f;
+    color: #f0ede8;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: #0a1a0f;
+}
+::-webkit-scrollbar-thumb {
+    background: #d4a017;
+    border-radius: 4px;
+}
+
+/* ── Keyframes ── */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes wa-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes glow-pulse {
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* ── Utility Classes ── */
+.animate-marquee {
+    animation: marquee 25s linear infinite;
+}
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+.animate-wa-pulse {
+    animation: wa-pulse 2s infinite;
+}
+.animate-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.shimmer-text {
+    background: linear-gradient(90deg, #d4a017 0%, #f0c84a 40%, #d4a017 100%);
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Reusable surface styles ── */
+.card {
+    background: #0f2318;
+    border: 1px solid #1f3d28;
+    border-radius: 1rem;
+    transition:
+        border-color 0.3s,
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.card:hover {
+    border-color: rgba(212, 160, 23, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.gold-border-glow {
+    box-shadow:
+        0 0 0 1px rgba(212, 160, 23, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.3);
 }
